@@ -134,7 +134,7 @@ public class Ball {
      */
     public void move() {
         // I calculated the movement using the elapsed time since the last frame. Because if I didn't do that, 
-        // the speed of the movement would be different depending on the FPS.
+        // the speed of the movement would be different depending on the FPS (frames per second).
         int currentTime = (int) System.currentTimeMillis();
         int elapsedTime = currentTime - lastTime;
         lastTime = currentTime;
