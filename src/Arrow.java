@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Arrow {
     // Constants
     public static final int PERIOD_OF_ARROW = 1500; // 1.5 seconds
+    public static final double ARROW_WIDTH = 0.2;
     
     // Variables
     private double position;
@@ -60,7 +61,7 @@ public class Arrow {
                 setInactive();
             }
             StdDraw.picture(position, height / 2, "arrow.png",
-                    0.2, height);
+                    ARROW_WIDTH, height);
         }
     }
     
@@ -74,9 +75,11 @@ public class Arrow {
         if (active) {
             for (Ball ball : balls) {
                 if (ball.isActive()) {
-                    // If the ball's and the arrow's x coordinates are closer than the ball's radius and the arrow's height is higher than the ball's bottom point's y coordinate, the ball is hit.
-                    if (Math.abs(ball.getX() - position) < ball.getRadius()
-                            && height > ball.getY() - ball.getRadius()) {
+                    // Find the nearest point on the arrow to the ball.
+                    double nearestX = Math.max(position - ARROW_WIDTH / 2, Math.min(ball.getX(), position + ARROW_WIDTH / 2));
+                    double nearestY = Math.max(0, Math.min(ball.getY(), height));
+                    // If the distance between the nearest point and the ball is less than the radius of the ball, the ball is hit.
+                    if (Math.pow(nearestX - ball.getX(), 2) + Math.pow(nearestY - ball.getY(), 2) < Math.pow(ball.getRadius(), 2)) {
                         // If the ball is level 0, it is set inactive.
                         if (ball.getLevel() == 0)
                             ball.setInactive();

@@ -75,12 +75,11 @@ public class Player {
     public boolean checkCollision(ArrayList<Ball> balls) {
         for (Ball ball : balls) {
             if (ball.isActive()) {
-                // If the distance between the center of the ball and the center of the player is less than 
-                // the sum of the radius of the ball and the width of the player and
-                // the y coordinate of the bottom point of the ball is less than the height of the player,
-                // then the player hit the ball.
-                if (Math.abs(ball.getX() - positionX) < ball.getRadius() + width / 2
-                        && ball.getY() - ball.getRadius() < height) {
+                // Find the nearest point on the player to the ball.
+                double nearestX = Math.max(positionX - width / 2, Math.min(ball.getX(), positionX + width / 2));
+                double nearestY = Math.max(0, Math.min(ball.getY(), height));
+                // Check if the distance between the nearest point and the ball is less than the radius of the ball.
+                if (Math.pow(nearestX - ball.getX(), 2) + Math.pow(nearestY - ball.getY(), 2) < Math.pow(ball.getRadius(), 2)) {
                     return true;
                 }
             }
