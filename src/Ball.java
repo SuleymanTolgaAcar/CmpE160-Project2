@@ -141,12 +141,11 @@ public class Ball {
         positionX += velocityX * elapsedTime;
         velocityY -= GRAVITY * elapsedTime / Environment.PAUSE_DURATION;
         positionY += velocityY * elapsedTime;
-        // If the ball hits the ground, set its velocityY to -velocityY.
+        // If the ball hits the bottom of the screen, set its velocityY to a value that will make it bounce to
+        // the correct height depending on the level of the ball.
         if (positionY - radius < 0) {
             positionY = radius;
-            // I added the right part of the plus sign to make the ball bounce a little bit higher.
-            // Because otherwise the ball would bounce lower and lower each time it hits the ground.
-            velocityY = -velocityY + GRAVITY * elapsedTime / Environment.PAUSE_DURATION / 2;
+            velocityY = Math.sqrt(2 * GRAVITY * MIN_POSSIBLE_HEIGHT * Math.pow(HEIGHT_MULTIPLIER, level)) * 60;
         }
         //  If the ball hits the left side of the screen, set its velocityX to -velocityX.
         if (positionX - radius < 0) {
