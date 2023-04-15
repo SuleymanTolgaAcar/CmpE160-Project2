@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Ball {
     // Constants
-    public static final int PERIOD_OF_BALL = 15000; // 15 second
+    public static final int PERIOD_OF_BALL = 15000; // 15 seconds
     public static final double HEIGHT_MULTIPLIER = 1.75;
     public static final double RADIUS_MULTIPLIER = 2.0;
     public static final double GRAVITY = Environment.SCALE_Y * 0.000003;
